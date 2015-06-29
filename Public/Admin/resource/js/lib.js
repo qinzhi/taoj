@@ -1,3 +1,6 @@
+var global = {
+    attach_prefix : '/Public/Admin/Attachments/'
+}
 function BrowseServer(input_image,fun )
 {
     var finder = new CKFinder();

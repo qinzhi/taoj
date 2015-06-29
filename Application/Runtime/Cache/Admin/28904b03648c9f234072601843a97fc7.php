@@ -500,73 +500,60 @@ Purchase: http://wrapbootstrap.com
     <div class="col-lg-12 col-sm-12 col-xs-12">
         <div class="widget">
             <div class="widget-header bordered-bottom bordered-sky" style="padding: 15px 11px;">
-                <div class="widget-caption">
-                    <div class="form-inline" role="form" autocomplete="off">
-                        <div class="form-group" style="margin-top: -4px;">
-                            <a class="btn btn-success" id="import_member" href="/banner/add">添加广告</a>
-                        </div>
-                    </div>
-                </div>
                 <div class="pull-right">
-                    <a class="btn btn-danger" id="del_member" href="javascript:void(0);">删除</a>
+                    <button class="btn btn-success" type="button">保存</button>
                 </div>
                 <div class="clearfix"></div>
             </div><!--Widget Header-->
-            <div class="widget-body plugins_member-">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th style="width: 20%;">
-                                广告图
-                            </th>
-                            <th style="width: 30%;">
-                                地址
-                            </th>
-                            <th style="width: 20%;">
-                                简介
-                            </th>
-                            <th style="width: 10%;">
-                                排序
-                            </th>
-                            <th style="width: 20%;">
-                                操作
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if(is_array($banner)): $i = 0; $__LIST__ = $banner;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                                <td>
-                                    <?php echo ($vo["name"]); ?>
-                                </td>
-                                <td>
-                                    <?php echo ($vo["url"]); ?>
-                                </td>
-                                <td>
-                                    <?php echo ($vo["intro"]); ?>
-                                </td>
-                                <td>
-                                    <?php echo ($vo["sort"]); ?>
-                                </td>
-                                <td>
-                                    <a class="btn btn-default btn-xs purple" href="/banner/edit?id=<?php echo ($vo["id"]); ?>"><i class="fa fa-edit"></i> Edit</a>
-                                    <a class="btn btn-default btn-xs black btn-delete" href="javascript:;" data-node="<?php echo ($vo["id"]); ?>"><i class="fa fa-trash-o"></i> Delete</a>
-                                </td>
-                            </tr><?php endforeach; endif; else: echo "" ;endif; ?>
-                    </tbody>
-                </table>
+            <div class="widget-body plugins_banner-">
+                <div id="horizontal-form">
+                    <form role="form" class="form-horizontal" style="margin: 30px 0;" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="name">名称*</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="name" name="name" value="<?php echo ($banner["name"]); ?>" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="image">图片*</label>
+                            <div class="col-sm-6">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="image" id="image" class="form-control" value="<?php echo ($banner["image"]); ?>" readonly>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" onclick="BrowseServer('image');">选择图片</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="intro">简介</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="intro" name="intro" value="<?php echo ($banner["intro"]); ?>" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="sort">排序</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="sort" name="sort" value="<?php echo ($banner["sort"]); ?>"  class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="url">地址*</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="url" name="url" value="<?php echo ($banner["url"]); ?>" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div><!--Widget Body-->
         </div><!--Widget-->
     </div>
 </div>
 <script>
     $(function(){
-        $('.btn-delete').click(function(){
-            var id = $(this).data('node');
-            bootbox.confirm("是否删除?", function (result) {
-                if (result) {
-                    window.location.href = '/banner/delete?id=' + id;
-                }
-            });
+        $('.btn-success').click(function(){
+            $(document).find('form').submit();
         });
     });
 </script>

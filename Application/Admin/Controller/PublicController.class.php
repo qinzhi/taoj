@@ -17,7 +17,7 @@ class PublicController extends Controller {
     }
 
     public function index(){
-        header('Location: /login');
+        $this->display('login');
     }
 
     public function login(){
@@ -39,26 +39,5 @@ class PublicController extends Controller {
             }
         }
         //$this->error('账户或密码不正确');
-    }
-
-    public function black(){
-        $this->display();
-    }
-
-    public function test(){
-        /*array(
-            'userid'    =>  'dazhi'
-            ,'name'     =>  '大智'
-            ,'department'   =>  '1'
-            ,'position '    =>  '技术经理'
-            ,'mobile'   =>  '15874246906'
-            ,'gender'   =>  '1'
-            ,'email'    =>  '631248045@qq.com'
-            ,'weixinid' =>  'qz631248045'
-            ,'extattr'  =>  '{"attrs":[{"name":"爱好","value":"旅游"}]}'
-        );*/
-        $wechat =   new \Admin\Lib\Api\WeChatApi();
-        $user = $wechat->get_user_list(1);
-        dump($user);
     }
 }
