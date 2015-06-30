@@ -17,7 +17,7 @@ class PublicController extends Controller {
     }
 
     public function index(){
-        header('Location: /login');
+        $this->display('login');
     }
 
     public function login(){
@@ -25,16 +25,16 @@ class PublicController extends Controller {
     }
 
     public function verify(){
-        $username = trim($_POST['username']);fb($username);
+        $username = trim($_POST['username']);
         $password = md5(trim($_POST['password']) . C('SALT_STR'));
         $admin = $this->admin->where(array('user'=>$username))->find();
         if(!empty($admin)){
-            if($password == $admin['psd']){
+            if($password == $admin['password']){
                 $time = time();
-                $admin['logintime'] = $time;
+                $admin['last_login_time'] = $time;
                 $this->admin->save($admin);
                 session('user',$username);
-                session('login_time',$time);
+                session('last_login_time',$time);
                 $this->success('登陆成功','/banner');
             }
         }
