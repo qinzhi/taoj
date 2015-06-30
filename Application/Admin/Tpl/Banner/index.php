@@ -40,7 +40,8 @@
                         <volist name="banner" id="vo">
                             <tr>
                                 <td>
-                                    {$vo.name}
+                                    <img src="<?php echo C('ATTACH_DIR') . $vo['image'];?>" style="height: 80px;width: 160px"/>
+                                    <p style="font-size: 16px;margin-top: 5px;">{$vo.name}</p>
                                 </td>
                                 <td>
                                     {$vo.url}

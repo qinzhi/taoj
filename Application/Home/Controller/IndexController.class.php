@@ -2,7 +2,65 @@
 namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
+
+    public function __construct(){
+        parent::__construct();
+
+        $banner = D('Banner')->find();
+        $this->assign('banner',$banner);
+
+        $category = D('Category')->order('sort desc')->select();
+        $this->assign('category',$category);
+    }
+
     public function index(){
-        $this->show('<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} body{ background: #fff; font-family: "微软雅黑"; color: #333;font-size:24px} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.8em; font-size: 36px } a,a:hover,{color:blue;}</style><div style="padding: 24px 48px;"> <h1>:)</h1><p>欢迎使用 <b>ThinkPHP</b>！</p><br/>版本 V{$Think.version}</div><script type="text/javascript" src="http://ad.topthink.com/Public/static/client.js"></script><thinkad id="ad_55e75dfae343f5a1"></thinkad><script type="text/javascript" src="http://tajs.qq.com/stats?sId=9347272" charset="UTF-8"></script>','utf-8');
+
+        $this->display();
+    }
+
+    public function content(){
+        $id = $_GET['id'];
+        $this->display();
+    }
+
+    public function appeal(){
+        if(!empty($_POST)){
+            $file = $_FILES['file'];
+            $file_name = $file['name'];
+            $suffix = $this->get_extension($file_name);
+            $upload = PROJECT_PATH . '/Public/Wechat/user_up/';
+            $timeDir = date('Y-m-d') . '/';
+            $upload .= $timeDir;
+            if(!is_dir($upload)){
+                mkdir($upload,0777);
+            }
+            $new_file_name = time() . '_' .rand(0,10000) . '.' .$suffix;
+            $newfile = $upload . $new_file_name;
+            move_uploaded_file($file['tmp_name'],$newfile);
+            $data = array(
+                'title' => $_POST['title']
+                ,'content' => $_POST['content']
+                ,'author' => '阿畅哥·烽火戏诸侯'
+                ,'pid' => $_POST['category']
+                ,'image_url' => $timeDir . $new_file_name
+                ,'post_time' => time()
+            );
+            $result = M('Appeal')->add($data);
+            if($result){
+                //求助成功
+            }
+        }
+        $this->display();
+    }
+
+    public function category(){
+        $this->display('list');
+    }
+
+
+    private function get_extension($file)
+    {
+        $info = pathinfo($file);
+        return $info['extension'];
     }
 }

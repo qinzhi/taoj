@@ -10,8 +10,8 @@
 <script src="__JS__/beyond.min.js"></script>
 
 <?php
-    $src = array_shift(C('TMPL_PARSE_STRING')) . '/JS' . $_SERVER["REQUEST_URI"];
+    /*$src = array_shift(C('TMPL_PARSE_STRING')) . '/JS' . $_SERVER["REQUEST_URI"];
     if(is_file(PROJECT_PATH . $src . '.js')){
         echo '<script src="' . $src . '.js"></script>';
-    }
+    }*/
 ?>

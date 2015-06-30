@@ -17,4 +17,6 @@ return array(
     'APP_SUB_DOMAIN_RULES'    =>    array(
         'admin.taoj.com'  => 'Admin',      // admin.domain1.com域名指向Admin模块
     ),
+
+    'ATTACH_DIR' => '/Public/Admin/Attachments/',
 );

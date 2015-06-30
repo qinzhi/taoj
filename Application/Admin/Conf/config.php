@@ -8,7 +8,6 @@ return array(
 
     'DEFAULT_V_LAYER'       =>  'Tpl',
 
-    'ATTACH_DIR' => '/Public/Admin/Attachments/',
     'TMPL_PARSE_STRING'  =>array(
         '__PUBLIC__' => '/Public/Admin', // 更改默认的/Public 替换规则
         '__CKEDITOR__' => '/Public/Admin/CKeditor', // 富文本编辑器

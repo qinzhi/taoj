@@ -131,3 +131,171 @@ function http($url, $params, $method = 'GET', $header = array(), $multi = false)
         throw new Exception('请求发生错误：' . $error);
     return $data;
 }
+
+/**
+ * 删除目录下所有文件
+ * <br/>
+ * @param string $path
+ */
+function clear_dir($dirname){
+    if ($dir = @dir($dirname)) {
+        $dir->rewind();
+        while ($file = $dir->read()) {
+            if (!in_array($file, array('.', '..', '.svn', '.gitignore', 'Thumbs.db'))) {
+                if (is_dir($dirname . '/' . $file)) {
+                    clear_dir($dirname . '/' . $file);
+                    !@rmdir($dirname . '/' . $file);
+                } else {
+                    !@unlink($dirname . '/' . $file);
+                }
+            }
+        }
+        $dir->close();
+    }
+}
+
+
+
+/**
+ * 清除无效目录名<br />
+ * <br />
+ * @param $array
+ */
+function clear_invalid_dir(&$array){
+    if(is_array($array)){
+        foreach ($array	as $key => $value){
+            switch ($value){
+                case '.':
+                case '..':
+                case '.svn':
+                case '.gitignore':
+                case 'Thumbs.db':
+                    unset($array[$key]);
+                    break;
+            }
+        }
+    }
+}
+
+/**
+ * 扫描目录和文件
+ * <br/>
+ * @param string $dir_path
+ * @param integer $level = 1
+ * @param string||method $filter = null
+ */
+function scan_dir($dir_path, $level = 1, $filter = null){
+    $returns	=	array();
+    if(is_dir($dir_path)){
+        $handle_dir	=	dir($dir_path);
+        while($file = $handle_dir->read()){
+            if($filter == null){
+                if(in_array($file, array('.', '..', '.svn', '.gitignore', 'Thumbs.db'))){
+                    continue;
+                }
+            }
+            $returns[]	=	$file;
+        }
+        $handle_dir->close();
+    }
+    return $returns;
+}
+
+/**
+ * 创建目录
+ * <br/>
+ * @param string $path
+ * @param integer $mode = 0755
+ */
+function create_dir($path, $mode = 0777){
+    if( !is_dir($path) ){
+        mkdir($path, $mode, TRUE);
+    }
+}
+
+/**
+ * 写入内容到文件(文件不存在则创建)
+ * <br/>
+ * @param string $path
+ * @param string $data
+ */
+function write_file($file_path, $data, $mode = 0777){
+    file_put_contents($file_path,$data);
+    @chmod($file_path, $mode);
+
+}
+
+/**
+ * 读取文件内容
+ * <br />
+ * @param string $file_path
+ */
+function read_file($file_path){
+    if(is_file($file_path))
+        return file_get_contents($file_path);
+    return null;
+}
+
+/**
+ * 删除路径的文件
+ * <br/>
+ * @param string $path
+ */
+function delete_file($file_path){
+    if(is_dir($file_path)){
+        @rmdir($file_path);
+    }elseif(is_file($file_path)){
+        @unlink($file_path);
+    }
+}
+
+/**
+ * 删除目录下所有文件
+ * <br/>
+ * @param string $path
+ */
+//clear_all_dir($path, array('-less.css'))
+function clear_all_dir($dirname, $onlyFileType = null){
+    if(strpos($onlyFileType,'php')!= -1) {
+        $onlyFileType = null;
+    }
+    if ($dir = @dir($dirname)) {
+        $dir->rewind();
+        while ($file = $dir->read()) {
+            if (!in_array($file, array('.', '..', '.svn', '.gitignore', 'Thumbs.db'))) {
+                if (is_dir($dirname . '/' . $file)) {
+                    clear_all_dir($dirname . '/' . $file, $onlyFileType);
+                    !@rmdir($dirname . '/' . $file);
+                } else {
+                    if($onlyFileType !== null) {
+                        $type = explode($onlyFileType, $file);
+                        if(count($type) == 2 && empty($type[1])){
+                            //!@unlink($dirname . '/' . $file);
+                        }
+                    } else {
+                        //!@unlink($dirname . '/' . $file);
+                    }
+                }
+            }
+        }
+        $dir->close();
+    }
+}
+
+
+/**
+ * 获取文件夹第一个有效文件
+ * @param $dir_path
+ */
+function get_first_file($dir_path){
+    $dirs	=	scan_dir($dir_path);
+    clear_invalid_dir($dirs);
+    if(count($dirs)>0){
+        foreach ($dirs as $value){
+            if(!empty($value)){
+                return $dir_path.'/'.$value;
+            }
+        }
+    }
+    return null;
+}
