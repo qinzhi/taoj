@@ -40,4 +40,9 @@ class PublicController extends Controller {
         }
         //$this->error('账户或密码不正确');
     }
+
+    public function logout(){
+        session(null);
+        $this->display('login');
+    }
 }

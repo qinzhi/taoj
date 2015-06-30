@@ -23,6 +23,7 @@
                         <li>
                             <a class=" dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
                                 <i class="icon fa fa-warning"></i>
+                                <span class="badge">4</span>
                             </a>
                             <!--Notification Dropdown-->
                             <ul class="pull-right dropdown-menu dropdown-arrow dropdown-notifications">
@@ -106,147 +107,9 @@
                             </ul>
                             <!--/Notification Dropdown-->
                         </li>
-                        <li>
-                            <a class="wave in dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
-                                <i class="icon fa fa-envelope"></i>
-                                <span class="badge">3</span>
-                            </a>
-                            <!--Messages Dropdown-->
-                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">
-                                <li>
-                                    <a href="#">
-                                        <img src="__IMAGE__/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">
-                                        <div class="message">
-                                                <span class="message-sender">
-                                                    Divyia Austin
-                                                </span>
-                                                <span class="message-time">
-                                                    2 minutes ago
-                                                </span>
-                                                <span class="message-subject">
-                                                    Here's the recipe for apple pie
-                                                </span>
-                                                <span class="message-body">
-                                                    to identify the sending application when the senders image is shown for the main icon
-                                                </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="__IMAGE__/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">
-                                        <div class="message">
-                                                <span class="message-sender">
-                                                    Bing.com
-                                                </span>
-                                                <span class="message-time">
-                                                    Yesterday
-                                                </span>
-                                                <span class="message-subject">
-                                                    Bing Newsletter: The January Issue‏
-                                                </span>
-                                                <span class="message-body">
-                                                    Discover new music just in time for the Grammy® Awards.
-                                                </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="__IMAGE__/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">
-                                        <div class="message">
-                                                <span class="message-sender">
-                                                    Nicolas
-                                                </span>
-                                                <span class="message-time">
-                                                    Friday, September 22
-                                                </span>
-                                                <span class="message-subject">
-                                                    New 4K Cameras
-                                                </span>
-                                                <span class="message-body">
-                                                    The 4K revolution has come over the horizon and is reaching the general populous
-                                                </span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <!--/Messages Dropdown-->
-                        </li>
 
-                        <li>
-                            <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" href="#">
-                                <i class="icon fa fa-tasks"></i>
-                                <span class="badge">4</span>
-                            </a>
-                            <!--Tasks Dropdown-->
-                            <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow ">
-                                <li class="dropdown-header bordered-darkorange">
-                                    <i class="fa fa-tasks"></i>
-                                    4 Tasks In Progress
-                                </li>
 
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Account Creation</span>
-                                            <span class="pull-right">65%</span>
-                                        </div>
 
-                                        <div class="progress progress-xs">
-                                            <div style="width:65%" class="progress-bar"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Profile Data</span>
-                                            <span class="pull-right">35%</span>
-                                        </div>
-
-                                        <div class="progress progress-xs">
-                                            <div style="width:35%" class="progress-bar progress-bar-success"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Updating Resume</span>
-                                            <span class="pull-right">75%</span>
-                                        </div>
-
-                                        <div class="progress progress-xs">
-                                            <div style="width:75%" class="progress-bar progress-bar-darkorange"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Adding Contacts</span>
-                                            <span class="pull-right">10%</span>
-                                        </div>
-
-                                        <div class="progress progress-xs">
-                                            <div style="width:10%" class="progress-bar progress-bar-warning"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li class="dropdown-footer">
-                                    <a href="#">
-                                        See All Tasks
-                                    </a>
-                                    <button class="btn btn-xs btn-default shiny darkorange icon-only pull-right"><i class="fa fa-check"></i></button>
-                                </li>
-                            </ul>
-                            <!--/Tasks Dropdown-->
-                        </li>
                         <li>
                             <a class="login-area dropdown-toggle" data-toggle="dropdown">
                                 <div class="avatar" title="View your public profile">
@@ -269,29 +132,13 @@
                                 </li>
                                 <!--Avatar Area-->
                                 <li class="edit">
-                                    <a href="profile.html" class="pull-left">个人中心</a>
+                                    <a href="#" class="pull-left">个人中心</a>
                                     <a href="#" class="pull-right">设置</a>
                                 </li>
-                                <!--Theme Selector Area-->
-                                <li class="theme-area">
-                                    <ul class="colorpicker" id="skin-changer">
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#5DB2FF;" rel="__CSS__/skins/blue.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#2dc3e8;" rel="__CSS__/skins/azure.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#03B3B2;" rel="__CSS__/skins/teal.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#53a93f;" rel="__CSS__/skins/green.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#FF8F32;" rel="__CSS__/skins/orange.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#cc324b;" rel="__CSS__/skins/pink.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#AC193D;" rel="__CSS__/skins/darkred.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#8C0095;" rel="__CSS__/skins/purple.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#0072C6;" rel="__CSS__/skins/darkblue.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#585858;" rel="__CSS__/skins/gray.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#474544;" rel="__CSS__/skins/black.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#001940;" rel="__CSS__/skins/deepblue.min.css"></a></li>
-                                    </ul>
-                                </li>
+
                                 <!--/Theme Selector Area-->
                                 <li class="dropdown-footer">
-                                    <a href="login.html">
+                                    <a href="/public/logout">
                                         退出
                                     </a>
                                 </li>
