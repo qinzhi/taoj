@@ -18,8 +18,6 @@ return array(
         '__IMAGE__' => '/Public/Admin/resource/img', // 增加新的img类库路径替换规则
     ),
 
-    'DEFAULT_CONTROLLER' => 'Public',    //默认模块
-
     'SALT_STR' => '|>.}HD:nt(TjkahB`2sj?,9xBg>20=lf',
     //模板布局
     //'LAYOUT_ON'=>true,
