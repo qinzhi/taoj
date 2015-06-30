@@ -4,8 +4,11 @@ return array(
 
     'SHOW_ERROR_MSG'        =>  true,
 
+    'DEFAULT_CONTROLLER' => 'public',    //默认控制器
+
     'DEFAULT_V_LAYER'       =>  'Tpl',
 
+    'ATTACH_DIR' => '/Public/Admin/Attachments/',
     'TMPL_PARSE_STRING'  =>array(
         '__PUBLIC__' => '/Public/Admin', // 更改默认的/Public 替换规则
         '__CKEDITOR__' => '/Public/Admin/CKeditor', // 富文本编辑器
