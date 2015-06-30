@@ -10,7 +10,7 @@ Purchase: http://wrapbootstrap.com
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>轻微OA</title>
+    <title>桃江帮帮团</title>
 
     <meta name="description" content="blank page" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,7 +22,7 @@ Purchase: http://wrapbootstrap.com
     <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
     <link href="__CSS__/font-awesome.min.css" rel="stylesheet" />
     <link href="__CSS__/weather-icons.min.css" rel="stylesheet" />
-
+    <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
     <!--Fonts-->
 
 

@@ -6,12 +6,15 @@ class BannerController extends AdminController {
 
     public function __construct(){
         parent::__construct();
+
+        $this->assign('module',1);
         $this->banner = D('Banner');
     }
 
     public function index(){
         $banner = $this->banner
                             ->order('sort desc')->select();
+        $this->assign('method',1);
         $this->assign('banner',$banner);
         $this->display();
     }
@@ -32,6 +35,7 @@ class BannerController extends AdminController {
                 return;
             }
         }
+        $this->assign('method',2);
         $this->display();
     }
 

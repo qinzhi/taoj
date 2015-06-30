@@ -10,7 +10,7 @@ Purchase: http://wrapbootstrap.com
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>轻微OA</title>
+    <title>桃江帮帮团</title>
 
     <meta name="description" content="blank page" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,7 +22,7 @@ Purchase: http://wrapbootstrap.com
     <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
     <link href="/Public/Admin/resource/css/font-awesome.min.css" rel="stylesheet" />
     <link href="/Public/Admin/resource/css/weather-icons.min.css" rel="stylesheet" />
-
+    <link href="/Public/Admin/resource/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
     <!--Fonts-->
 
 
@@ -427,21 +427,41 @@ Purchase: http://wrapbootstrap.com
     </li>
 
     <!--UI Elements-->
-    <li class="open active">
+    <li <?php if($module==1)echo 'class="open active"';?>>
         <a href="#" class="menu-dropdown">
             <i class="menu-icon fa fa-desktop"></i>
             <span class="menu-text"> 广告管理 </span>
             <i class="menu-expand"></i>
         </a>
         <ul class="submenu">
-            <li class="active">
-                <a href="/app">
+            <li <?php if($module==2 && $method==1)echo 'class="active"';?>>
+                <a href="/banner">
                     <span class="menu-text"> 广告列表 </span>
                 </a>
             </li>
-            <li>
-                <a href="/app">
+            <li <?php if($module==2 && $method==2)echo 'class="active"';?>>
+                <a href="/banner/add">
                     <span class="menu-text"> 添加广告 </span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li <?php if($module==2)echo 'class="open active"';?>>
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon fa fa-desktop"></i>
+            <span class="menu-text"> 分类管理 </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li <?php if($module==2 && $method==1)echo 'class="active"';?>>
+                <a href="/category">
+                    <span class="menu-text"> 分类列表 </span>
+                </a>
+            </li>
+            <li <?php if($module==2 && $method==2)echo 'class="active"';?>>
+                <a href="/category/add">
+                    <span class="menu-text"> 添加分类 </span>
                 </a>
             </li>
         </ul>
@@ -584,6 +604,7 @@ Purchase: http://wrapbootstrap.com
 <script src="/Public/Admin/resource/js/datetime/bootstrap-datepicker.js"></script>
 <script src="/Public/Admin/resource/js/bootbox/bootbox.js"></script>
 <script src="/Public/Admin/resource/js/toastr/toastr.js"></script>
+<script src="/Public/Admin/resource/js/jquery.ztree.all-3.5.min.js"></script>
 <script src="/Public/Admin/CKeditor/ckeditor.js"></script>
 <script src="/Public/Admin/CKfinder/ckfinder.js"></script>
 <!--Beyond Scripts-->

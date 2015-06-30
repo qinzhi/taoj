@@ -2,18 +2,19 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50617
+Source Server Version : 50532
 Source Host           : localhost:3306
 Source Database       : taojiang
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50532
 File Encoding         : 65001
 
-Date: 2015-06-29 22:43:43
+Date: 2015-06-30 17:50:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
 -- ----------------------------
 -- Table structure for `admin`
 -- ----------------------------
@@ -21,15 +22,15 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `user` varchar(20) NOT NULL COMMENT '管理员',
-  `psd` varchar(50) NOT NULL COMMENT '密码',
-  `logintime` int(10) DEFAULT NULL COMMENT '上次登陆时间',
+  `password` varchar(50) NOT NULL COMMENT '密码',
+  `last_login_time` int(10) DEFAULT NULL COMMENT '上次登陆时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('2', 'admin', '3605be85cff0e8a69141594452fb43d1', '1435585054');
+INSERT INTO `admin` VALUES ('2', 'admin', '3605be85cff0e8a69141594452fb43d1', '1435636181');
 
 -- ----------------------------
 -- Table structure for `banner`
@@ -49,4 +50,23 @@ CREATE TABLE `banner` (
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
-INSERT INTO `banner` VALUES ('2', 'test', 'images/adam-jansen.jpg', '/', 'test', '1', '1435588928');
+
+-- ----------------------------
+-- Table structure for `category`
+-- ----------------------------
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `pid` int(8) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `intro` varchar(126) DEFAULT NULL,
+  `level` tinyint(1) DEFAULT NULL,
+  `sort` int(5) DEFAULT NULL,
+  `post_time` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of category
+-- ----------------------------
+INSERT INTO `category` VALUES ('1', '0', '法律', '', '1', '1', '1435650168');

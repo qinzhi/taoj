@@ -8,21 +8,41 @@
     </li>
 
     <!--UI Elements-->
-    <li class="open active">
+    <li <?php if($module==1)echo 'class="open active"';?>>
         <a href="#" class="menu-dropdown">
             <i class="menu-icon fa fa-desktop"></i>
             <span class="menu-text"> 广告管理 </span>
             <i class="menu-expand"></i>
         </a>
         <ul class="submenu">
-            <li class="active">
-                <a href="/app">
+            <li <?php if($module==2 && $method==1)echo 'class="active"';?>>
+                <a href="/banner">
                     <span class="menu-text"> 广告列表 </span>
                 </a>
             </li>
-            <li>
-                <a href="/app">
+            <li <?php if($module==2 && $method==2)echo 'class="active"';?>>
+                <a href="/banner/add">
                     <span class="menu-text"> 添加广告 </span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li <?php if($module==2)echo 'class="open active"';?>>
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon fa fa-desktop"></i>
+            <span class="menu-text"> 分类管理 </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li <?php if($module==2 && $method==1)echo 'class="active"';?>>
+                <a href="/category">
+                    <span class="menu-text"> 分类列表 </span>
+                </a>
+            </li>
+            <li <?php if($module==2 && $method==2)echo 'class="active"';?>>
+                <a href="/category/add">
+                    <span class="menu-text"> 添加分类 </span>
                 </a>
             </li>
         </ul>
