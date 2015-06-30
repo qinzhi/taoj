@@ -70,3 +70,11 @@ ul.tree_menu a.active i {
 .avatar-area:hover .caption{display: block}
 
 .plugins_app- .table td{vertical-align: middle;}
+.box-category {
+    position: absolute;
+    right: 15px;
+    top: 82px;
+    width: 400px;
+}
+.tree-level2{padding-left: 30px;display: inline-block}
+.tree-level3{padding-left: 60px;display: inline-block}
