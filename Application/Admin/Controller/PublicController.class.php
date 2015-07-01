@@ -39,7 +39,7 @@ class PublicController extends Controller {
                 return;
             }
         }
-        $this->success('用户名或密码错误，登陆失败','/banner');
+        $this->success('用户名或密码错误，登陆失败','/login');
         //$this->error('账户或密码不正确');
     }
 

@@ -1,19 +1,20 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50617
-Source Host           : localhost:3306
+Source Server         : 121.41.50.50
+Source Server Version : 50540
+Source Host           : 121.41.50.50:3306
 Source Database       : taojiang
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2015-06-30 23:26:09
+Date: 2015-07-01 18:43:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
 -- ----------------------------
 -- Table structure for `admin`
 -- ----------------------------
@@ -29,7 +30,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('2', 'admin', '3605be85cff0e8a69141594452fb43d1', '1435636181');
+INSERT INTO `admin` VALUES ('2', 'admin', '3605be85cff0e8a69141594452fb43d1', '1435719641');
 
 -- ----------------------------
 -- Table structure for `appeal`
@@ -41,18 +42,39 @@ CREATE TABLE `appeal` (
   `content` text,
   `image_url` varchar(126) DEFAULT NULL,
   `cid` int(8) DEFAULT NULL,
-  `author` varchar(40) DEFAULT NULL,
-  `read_num` int(8) DEFAULT NULL,
-  `praise_num` int(8) DEFAULT NULL,
-  `tread_num` int(8) DEFAULT NULL,
+  `author` varchar(40) DEFAULT NULL COMMENT '作者',
+  `read_num` int(8) DEFAULT NULL COMMENT '阅读数',
+  `praise_num` int(8) DEFAULT NULL COMMENT '赞',
+  `tread_num` int(8) DEFAULT NULL COMMENT '踩',
   `post_time` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of appeal
 -- ----------------------------
-INSERT INTO `appeal` VALUES ('1', '11111', '11', '2015-06-30/1435677932_9447.jpg', null, '阿畅哥·烽火戏诸侯', null, null, null, '1435677932');
+INSERT INTO `appeal` VALUES ('3', '优美的小区环境+绝对超乎想象的舒适+全套家电拎包入住随时看', '关于租房：此房绝对真实房源，照片是本人亲自拍摄，全新精装修，品牌家具家电，房东都没住过，人们都喜欢新的事物，干净整洁的厨房让您煮饭炒菜一路好心情，此小区是树木岭地区最成熟的小区，没有之一！', '2015-07-01/1435721212_7442.', '1', '阿畅哥·烽火戏诸侯', null, null, null, '1435721212');
+
+-- ----------------------------
+-- Table structure for `appeal_reply`
+-- ----------------------------
+DROP TABLE IF EXISTS `appeal_reply`;
+CREATE TABLE `appeal_reply` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `reply` text,
+  `user` varchar(40) DEFAULT NULL,
+  `aid` int(10) DEFAULT NULL,
+  `praise_num` int(8) DEFAULT NULL COMMENT '赞',
+  `tread_num` int(8) DEFAULT NULL COMMENT '踩',
+  `post_time` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of appeal_reply
+-- ----------------------------
+INSERT INTO `appeal_reply` VALUES ('1', '11111', '阿畅哥·烽火戏诸侯', '3', null, null, '1435722411');
+INSERT INTO `appeal_reply` VALUES ('2', '好啊', '阿畅哥·烽火戏诸侯', '3', null, null, '1435722635');
 
 -- ----------------------------
 -- Table structure for `banner`
@@ -87,9 +109,13 @@ CREATE TABLE `category` (
   `sort` int(5) DEFAULT NULL,
   `post_time` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of category
 -- ----------------------------
-INSERT INTO `category` VALUES ('1', '0', '法律', '', '1', '1', '1435650168');
+INSERT INTO `category` VALUES ('1', '0', '房产', '', '1', '1', '1435650168');
+INSERT INTO `category` VALUES ('3', '0', '招聘', '', '1', '2', '1435720318');
+INSERT INTO `category` VALUES ('4', '0', '二手', '', '1', '3', '1435720339');
+INSERT INTO `category` VALUES ('5', '0', '交友', '', '1', '4', '1435720359');
+INSERT INTO `category` VALUES ('6', '0', '其他', '', '1', '5', '1435720377');

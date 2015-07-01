@@ -11,9 +11,9 @@ class CategoryController extends AdminController {
     }
 
     public function index(){
-        $categories = $this->category->order('sort desc')->get_all();
+        $categories = $this->category->order('sort')->get_all();
         $tree = new \Admin\Lib\Org\Util\Tree($categories);
-        $categories = $tree->leaf();fb($categories);
+        $categories = $tree->leaf();
         $this->assign('categories',$categories);
         $this->assign('method',1);
         $this->display();
@@ -49,20 +49,37 @@ class CategoryController extends AdminController {
     public function edit(){
         $id = (int)$_GET['id'];
         if(!empty($_POST)){
-            $data = array(
-                'id' => $id,
-                'name' => $_POST['name']
-                ,'intro' => $_POST['intro']
-                ,'image' => $_POST['image']
-                ,'sort' => $_POST['sort']
-                ,'url' => $_POST['url']
-            );
-            $this->category->save($data);
-            $this->success('更新成功','/banner');
-            return;
+            $level = $this->category->get_level($_POST['p_id']);
+            if($level <=3 && $level > 0){
+                $data = array(
+                    'id' => $id,
+                    'name' => $_POST['name'],
+                    'intro' => $_POST['intro'],
+                    'sort' => $_POST['sort'],
+                    'pid' => $_POST['p_id'],
+                    'level' => $level
+                );
+                $this->category->save($data);
+                $this->success('更新成功', '/category');
+                return;
+            }else{
+                $this->success('更新失败，最大分类不能超过三级', '/category/edit?id=' . $id);
+            }
         }
-        $banner = $this->category->find($id);
-        $this->assign('banner',$banner);
+        $p_name = '根节点';
+        $categories = $this->category->format_tree($this->category->get_all());
+        $root = array(array('id'=>-1,'pId'=>0,'name'=> $p_name));
+        $categories = array_merge($root,$categories);fb($categories);
+        $category = $this->category->find($id);
+
+        foreach($categories as $value){
+            if($value['id'] == $category['pid']){
+                $p_name = $value['name'];
+            }
+        }
+        $this->assign('categories',$categories);
+        $this->assign('category',$category);
+        $this->assign('p_name',$p_name);
         $this->display();
     }
 

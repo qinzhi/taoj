@@ -26,11 +26,9 @@
 </div>
 <div class="top">
     <ul class="nav">
-        <li><a href="#">法律</a></li>
-        <li><a href="#">健康</a></li>
-        <li><a href="#">教育</a></li>
-        <li><a href="#">心理</a></li>
-        <li><a href="#">其他</a></li>
+        <volist name="category" id="vo">
+            <li><a href="/index/category?id={$vo.id}">{$vo.name}</a></li>
+        </volist>
     </ul>
 </div>
 <div class="banner">
@@ -44,8 +42,10 @@
         <div class="container-fluid bkg ask-category">
             <div class="pull-right">
                 <label>求助类型</label>
-                <select name="category" id="category">
-                    <option value="1">法律咨询</option>
+                <select name="category" id="category" style="width: 180px;">
+                    <volist name="category" id="vo">
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
                 </select>
             </div>
             <div class="clear"></div>
@@ -64,13 +64,16 @@
             <div class="row">
                 <div class="col-md-6 appeal-broadcast-sos">
                     <input type="file" class="hidden" name="file" id="file"/>
-                    <a class="btn btn-share" id="attach" href="#">上传图片附件</a>
+                    <a class="btn btn-share" id="attach" href="javascript:;">上传图片附件</a>
                 </div>
                 <div class="col-md-6 appeal-broadcast-share">
                     <button type="submit" class="hidden submit"></button>
                     <a class="btn btn-sos" id="submit" href="javascript:;">确定提交</a>
                 </div>
             </div>
+        </div>
+        <div class="modal-img">
+            <img id="preview" src="">
         </div>
     </form>
 </div>
@@ -93,6 +96,32 @@
             return false;
         }
     }
+    function is_photo(obj){
+        var photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
+
+        if(photoExt == '.jpg' || photoExt == '.jpeg' || photoExt == '.bmp' || photoExt == '.png' || photoExt == '.gif');
+        else{
+            alert("图片格式不正确!");
+            return false;
+        }
+
+        var fileSize = 0;
+        var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+        if (isIE && !obj.files) {
+            var filePath = obj.value;
+            var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+            var file = fileSystem.GetFile (filePath);
+            fileSize = file.Size;
+        }else {
+            fileSize = obj.files[0].size;
+        }
+
+        fileSize=Math.round(fileSize/1024*100)/100; //单位为KB
+        if(fileSize >= 1024){
+            alert("照片最大尺寸为1M，请重新上传!");
+            return false;
+        }
+    }
     $(function(){
         $('#submit').click(function(){
             $(document).find('.submit').trigger('click');
@@ -101,6 +130,9 @@
             $('#file').trigger('click');
         });
         $(document).on('change','#file',function(){
+            if(is_photo(this) === false){
+                return false;
+            }
             if($('.appeal-attach')[0].style.display == '' || $('.appeal-attach')[0].style.display == 'none'){
                 $('.appeal-attach').show();
             }
@@ -114,6 +146,22 @@
                 file.remove();
             }
         });
+        $('#file_name').click(function(){
+            var file = document.getElementById('file');
+            var url = window.URL.createObjectURL(file.files[0]);
+            $('#preview').attr('src',url);
+            $('.modal-img').show();
+        });
+        $('.modal-img').click(function(){
+            $('.modal-img').hide();
+        });
+        document.getElementById('preview').onload = function(){
+            var height = $(this).height();
+            var width = $(this).width();
+            var margin_top = - height / 2 + 'px';
+            var margin_left = - width / 2 + 'px';
+            $(this).css({'margin-top':margin_top,'margin-left':margin_left});
+        }
     });
 </script>
 </body>

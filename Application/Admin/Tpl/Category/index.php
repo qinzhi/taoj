@@ -45,7 +45,7 @@
                                         <td>' . $category[$i]['intro'] . '</td>
                                         <td>' . $category[$i]['sort'] . '</td>
                                         <td class="caozuo">
-                                            <a class="btn btn-default btn-xs purple" href="/banner/edit?id=' . $category[$i]['id'] . '"><i class="fa fa-edit"></i> Edit</a>
+                                            <a class="btn btn-default btn-xs purple" href="/category/edit?id=' . $category[$i]['id'] . '"><i class="fa fa-edit"></i> Edit</a>
                                             <a class="btn btn-default btn-xs black btn-delete" href="javascript:;" data-node="' . $category[$i]['id'] . '"><i class="fa fa-trash-o"></i> Delete</a>
                                         </td></tr>';
                                     if(!empty($category[$i]['child'])):

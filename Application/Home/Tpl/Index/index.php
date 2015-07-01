@@ -11,8 +11,8 @@
 <body>
 <div class="header">
     <div class="logo pull-left">
-        <img src="__IMAGE__/logo.png" />
-        <span>爱在桃江·互帮互助</span>
+        <a href="/"><img src="__IMAGE__/logo.png" />
+        <span>爱在桃江·互帮互助</span></a>
     </div>
     <div class="help pull-right">
         <a href="/index/appeal"><img src="__IMAGE__/help.png">
@@ -21,11 +21,9 @@
 </div>
 <div class="top">
     <ul class="nav">
-        <li><a href="/index/category">法律</a></li>
-        <li><a href="#">健康</a></li>
-        <li><a href="#">教育</a></li>
-        <li><a href="#">心理</a></li>
-        <li><a href="#">其他</a></li>
+        <volist name="category" id="vo">
+            <li><a href="/index/category?id={$vo.id}">{$vo.name}</a></li>
+        </volist>
     </ul>
 </div>
 <div class="banner">
@@ -145,40 +143,25 @@
             <div class="clear"></div>
         </div>
         <ul class="question-list">
-            <li><a href="/index/content?id=1">内容什么胡发撒泼价格多少个地方的<span class="status status-green pull-right">解决中</span></a></li>
-            <li><a href="content.html">内容什么胡发撒泼价格多少个地方的<span class="status status-red pull-right">已处理</span></a></li>
-            <li><a href="content.html">内容什么胡发撒泼价格多少个地方的<span class="status status-green pull-right">解决中</span></a></li>
-            <li><a href="content.html">内容什么胡发撒泼价格多少个地方的<span class="status status-red pull-right">已处理</span></a></li>
-            <li><a href="content.html">内容什么胡发撒泼价格多少个地方的<span class="status status-green pull-right">解决中</span></a></li>
-            <li><a href="content.html">内容什么胡发撒泼价格多少个地方的<span class="status status-red pull-right">已处理</span></a></li>
+            <volist name="appeal" id="vo">
+                <li>
+                    <a href="/index/content?id={$vo.id}">
+                        <p>{$vo.title}</p>
+                        <span class="status status-green pull-right">解决中</span>
+                    </a>
+                </li>
+            </volist>
         </ul>
     </div>
     <div class="container-fluid">
-        <div class="page">
-            <div class="page-left">
-                <a class="prev_page btn btn-page" href="#">上一页</a>
-            </div>
-            <div class="page-center">
-                <ul class="page-list btn-group">
-                    <li><a class="next_page btn btn-page" href="#">1</a></li>
-                    <li><a class="next_page btn btn-page" href="#">2</a></li>
-                    <li><a class="next_page btn btn-page" href="#">3</a></li>
-                    <li><a class="next_page btn btn-page" href="#">4</a></li>
-                    <li><a class="next_page btn btn-page" href="#">5</a></li>
-                </ul>
-                <div class="clear"></div>
-            </div>
-            <div class="page-right">
-                <a class="next_page btn btn-page" href="#">下一页</a>
-            </div>
-        </div>
+        <?php page('/index',$page,$page_num,'');?>
     </div>
     <div class="container-fluid broadcast">
         <div class="sos">
-            <a class="btn btn-sos" href="appeal.html">我要求助</a>
+            <a class="btn btn-sos" href="/index/appeal">我要求助</a>
         </div>
         <div class="share">
-            <a class="btn btn-share" href="#">分享到朋友圈·大家一起解决</a>
+            <a class="btn btn-share" href="javascript:;">分享到朋友圈·大家一起解决</a>
         </div>
     </div>
 </div>
