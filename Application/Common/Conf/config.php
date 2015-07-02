@@ -15,8 +15,11 @@ return array(
     'URL_CASE_INSENSITIVE'  =>  true,   //URL大小写
     'APP_SUB_DOMAIN_DEPLOY'   =>    1,   // 开启子域名配置
     'APP_SUB_DOMAIN_RULES'    =>    array(
-        'tmp.taoth.com'  => 'Admin',      // admin.domain1.com域名指向Admin模块
+        'www.taoth.cn'  => 'Admin',      // admin.domain1.com域名指向Admin模块
     ),
 
-    'ATTACH_DIR' => '/Public/Admin/Attachments/',
+    'APPID' => 'wx047027ecfdfb59b0',
+    'APPSECRET' => '6b03637152bd0b0ee01f0eb641ed637f',
+
+    'ATTACH_DIR' => PROJECT_RELATIVE_PATH . '/Public/Admin/Attachments/',
 );

@@ -19,7 +19,7 @@ a,a:hover,a:focus{text-decoration: none;}
 .btn-group li:first-child .btn{border-bottom-left-radius: 5px;border-top-left-radius: 5px;}
 .btn-group li:last-child .btn{border-bottom-right-radius: 5px;border-top-right-radius: 5px;border-right: none;}
 .btn-page{border-bottom: 2px solid #699F3E;border-right: 1px solid #9CC772;font-size: 24px;color: #ffffff;background-color: #8BC351;}
-.btn-sos{background-color: #EE8649;font-size: 36px;color: #ffffff;height: 80px;line-height: 80px;}
+.btn-sos{background-color: #EE8649;font-size: 36px;color: #ffffff;height: 80px;line-height: 80px;}.btn-sos:focus{color: #ffffff;}
 .btn-share{border: 2px solid #9FCE6F;font-size: 36px;color: #727272;height: 80px;line-height: 80px;background-color: #fff;}
 .btn-confirm{background-color: #EE8649;font-size: 36px;color: #ffffff;height: 65px;line-height: 65px;}
 .header{height: 95px;background: #F4FDEE;padding: 10px 20px;border-bottom: 1px solid #74A74D;}
@@ -82,7 +82,7 @@ a,a:hover,a:focus{text-decoration: none;}
 .content ul.question-list{border-bottom: 2px solid #B5D39D; }
 .content ul.question-list li{font-size: 26px;}
 .content ul.question-list li a,.content ul.question-list li a:focus{color: #727272;width: 100%;display: block;padding: 5px 15px;height: 65px; line-height: 65px;}
-.content ul.question-list li a p{display: inline-block;width: 75%;white-space: nowrap;}
+.content ul.question-list li a p{display: inline-block;width: 75%;white-space: nowrap;text-overflow:ellipsis;overflow:hidden;}
 .content ul.question-list li:nth-child(even){background-color: #F8FDF6;}
 .content .page{width: inherit}
 .content .page div{float: left;}
@@ -115,9 +115,11 @@ a,a:hover,a:focus{text-decoration: none;}
 .content-broadcast .row div .btn{height: 55px;line-height: 55px;font-size: 24px;}
 .article{padding: 0 15px 15px 15px;background-color: #F4FDEE;}
 .article article{border: 1px solid #9FCE6F;background-color: #fff;}
-.article article h3{height: 105px;border-bottom: 1px solid #B6B6B6;font-size: 30px;color: #212121;}
-.article article h3 img{height: 60px;width: 60px;margin: 22px 25px;float: left}
-.article article h3 span{display: inline-block;line-height: 105px;}
+.article article .article-title{border-bottom: 1px solid #B6B6B6;font-size: 30px;color: #212121;clear: both;display: block;}
+.article article .article-title .icon{float: left;width: 110px;text-align: center;vertical-align: middle;line-height: 100px;}
+.article article .article-title .icon img{height: 60px;width: 60px;vertical-align: middle;}
+.article article .article-title .title{margin-left: 110px;padding: 35px 0;}
+.article article .article-title .title span{font-size: 30px;color: #212121;font-weight: bold;}
 .article article p{padding: 35px 45px;font-size: 24px;color: #727272;line-height: 40px;}
 .rely{padding: 0 15px;background-color: #F4FDEE;}
 .rely .rely-list{border: 1px solid #9FCE6F;margin-top: 15px;background-color: #fff;}

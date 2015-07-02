@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 header("Content-type: text/html; charset=utf-8");
 // 应用入口文件
-phpinfo();
+
 // 检测PHP环境
 if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 
@@ -23,6 +23,15 @@ define('APP_NAME','轻微OA');
 
 //项目路径
 define('PROJECT_PATH',$_SERVER['DOCUMENT_ROOT']);
+
+define('SCRIPT_NAME',$_SERVER["SCRIPT_NAME"]);
+
+$script = explode('/index.php',SCRIPT_NAME);
+if(count($script) > 1){
+    array_pop($script);
+}
+
+define('PROJECT_RELATIVE_PATH',implode('',$script));
 
 // 定义应用目录
 define('APP_PATH','./Application/');

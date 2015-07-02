@@ -15,14 +15,14 @@
         <span>爱在桃江·互帮互助</span></a>
     </div>
     <div class="help pull-right">
-        <a href="/index/appeal"><img src="__IMAGE__/help.png">
+        <a href="<?php echo PROJECT_RELATIVE_PATH;?>/index/appeal"><img src="__IMAGE__/help.png">
             <span>我要求助</span></a>
     </div>
 </div>
 <div class="top">
     <ul class="nav">
         <volist name="category" id="vo">
-            <li><a href="/index/category?id={$vo.id}">{$vo.name}</a></li>
+            <li><a href="<?php echo PROJECT_RELATIVE_PATH;?>/index/category?id={$vo.id}">{$vo.name}</a></li>
         </volist>
     </ul>
 </div>
@@ -145,7 +145,7 @@
         <ul class="question-list">
             <volist name="appeal" id="vo">
                 <li>
-                    <a href="/index/content?id={$vo.id}">
+                    <a href="<?php echo PROJECT_RELATIVE_PATH;?>/index/content?id={$vo.id}">
                         <p>{$vo.title}</p>
                         <span class="status status-green pull-right">解决中</span>
                     </a>
@@ -158,7 +158,7 @@
     </div>
     <div class="container-fluid broadcast">
         <div class="sos">
-            <a class="btn btn-sos" href="/index/appeal">我要求助</a>
+            <a class="btn btn-sos" href="<?php echo PROJECT_RELATIVE_PATH;?>/index/appeal">我要求助</a>
         </div>
         <div class="share">
             <a class="btn btn-share" href="javascript:;">分享到朋友圈·大家一起解决</a>
@@ -170,5 +170,42 @@
     <p><span class="p1">立足桃江</span><span class="p2">&</span><span class="p3">服务家乡</span></p>
     <p class="theme">桃江帮帮团</p>
 </div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    $(function(){
+        wx.checkJsApi({
+            jsApiList: ['menuShareTimeline'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+            success: function(res) {
+                //console.log(res);
+            }
+        });
+        wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '', // 必填，企业号的唯一标识，此处填写企业号corpid
+            timestamp: 1231231231, // 必填，生成签名的时间戳
+            nonceStr: '', // 必填，生成签名的随机串
+            signature: '',// 必填，签名，见附录1
+            jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.error(function(res){
+            //console.log(res);
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+        });
+        $('.btn-share').click(function(){
+            wx.onMenuShareTimeline({
+                title: '桃江帮帮团', // 分享标题
+                link: location.href, // 分享链接
+                imgUrl: '', // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

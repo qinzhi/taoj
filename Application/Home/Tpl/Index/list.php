@@ -15,14 +15,14 @@
         <span>爱在桃江·互帮互助</span></a>
     </div>
     <div class="help pull-right">
-        <a href="/index/appeal"><img src="__IMAGE__/help.png">
+        <a href="<?php echo PROJECT_RELATIVE_PATH;?>/index/appeal"><img src="__IMAGE__/help.png">
             <span>我要求助</span></a>
     </div>
 </div>
 <div class="top">
     <ul class="nav">
         <volist name="category" id="vo">
-            <li><a href="/index/category?id={$vo.id}">{$vo.name}</a></li>
+            <li><a href="<?php echo PROJECT_RELATIVE_PATH;?>/index/category?id={$vo.id}">{$vo.name}</a></li>
         </volist>
     </ul>
 </div>
@@ -54,7 +54,7 @@
         <ul class="category-list">
             <volist name="appeal" id="vo">
                 <li>
-                    <a href="/index/content?id={$vo.id}">
+                    <a href="<?php echo PROJECT_RELATIVE_PATH;?>/index/content?id={$vo.id}">
                         {$vo.title}
                         <p>{$vo.post_time|date='Y-m-d',###}</p>
                     </a>

@@ -27,7 +27,7 @@
 <div class="top">
     <ul class="nav">
         <volist name="category" id="vo">
-            <li><a href="/index/category?id={$vo.id}">{$vo.name}</a></li>
+            <li><a href="<?php echo PROJECT_RELATIVE_PATH;?>/index/category?id={$vo.id}">{$vo.name}</a></li>
         </volist>
     </ul>
 </div>
@@ -51,7 +51,7 @@
             <div class="clear"></div>
         </div>
         <div class="container-fluid bkg add-ask">
-            <input type="text" placeholder="请输入标题" name="title" id="title"/>
+            <input type="text" placeholder="请输入标题" name="title" id="title" maxlength="30"/>
             <textarea placeholder="输入内容" name="content" id="content"></textarea>
         </div>
         <div class="container-fluid bkg appeal-broadcast">

@@ -19,7 +19,7 @@
         </div>
         <div class="title pull-left">内容详情</div>
         <div class="help pull-right">
-            <a href="/index/appeal"><img src="__IMAGE__/help.png">
+            <a href="<?php echo PROJECT_RELATIVE_PATH;?>/index/appeal"><img src="__IMAGE__/help.png">
                 <span>我要求助</span></a>
         </div>
     </div>
@@ -27,7 +27,7 @@
 <div class="top">
     <ul class="nav">
         <volist name="category" id="vo">
-            <li><a href="/index/category?id={$vo.id}">{$vo.name}</a></li>
+            <li><a href="<?php echo PROJECT_RELATIVE_PATH;?>/index/category?id={$vo.id}">{$vo.name}</a></li>
         </volist>
     </ul>
 </div>
@@ -41,7 +41,7 @@
     <div class="container-fluid content-broadcast">
         <div class="row">
             <div class="col-md-6 content-broadcast-sos">
-                <a class="btn btn-sos" href="/index/appeal">我要求助</a>
+                <a class="btn btn-sos" href="<?php echo PROJECT_RELATIVE_PATH;?>/index/appeal">我要求助</a>
             </div>
             <div class="col-md-6 content-broadcast-share">
                 <a class="btn btn-share" href="javascript:;">分享到朋友圈·大家一起解决</a>
@@ -50,10 +50,11 @@
     </div>
     <div class="container-fluid article">
         <article>
-            <h3>
-                <img src="__IMAGE__/logo.png">
-                <span>{$appeal.title}</span>
-            </h3>
+            <div class="article-title">
+                <div class="icon"><img src="/Public/Wechat/img/logo.png"></div>
+                <div class="title"><span>{$appeal.title}</span></div>
+                <div class="clear"></div>
+            </div>
             <p>{$appeal.content}</p>
         </article>
     </div>
@@ -82,7 +83,7 @@
     </div>
     <div class="container-fluid broadcast">
         <div class="sos">
-            <a class="btn btn-sos" href="/index/appeal">我要求助</a>
+            <a class="btn btn-sos" href="<?php echo PROJECT_RELATIVE_PATH;?>/index/appeal">我要求助</a>
         </div>
         <div class="share">
             <a class="btn btn-share" href="javascript:;">分享到朋友圈·大家一起解决</a>

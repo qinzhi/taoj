@@ -15,7 +15,7 @@
         'DB_HOST'=>'localhost',
         'DB_NAME'=>'taojiang',
         'DB_USER'=>'root',
-        'DB_PWD'=>'ucdSs*6Mc#2H',
+        'DB_PWD'=>'',
         'DB_PORT'=>'3306',
         'DB_PREFIX'=>'',
     );
