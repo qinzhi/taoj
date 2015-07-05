@@ -48,4 +48,11 @@
         </ul>
     </li>
 
+    <li <?php if($module==3)echo 'class="active"';?>>
+        <a href="/auth">
+            <i class="menu-icon fa fa-key"></i>
+            <span class="menu-text">权限管理</span>
+        </a>
+    </li>
+
 </ul>
