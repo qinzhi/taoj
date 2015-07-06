@@ -19,7 +19,7 @@ a,a:hover,a:focus{text-decoration: none;}
 .btn-group li:first-child .btn{border-bottom-left-radius: 5px;border-top-left-radius: 5px;}
 .btn-group li:last-child .btn{border-bottom-right-radius: 5px;border-top-right-radius: 5px;border-right: none;}
 .btn-page{border-bottom: 2px solid #699F3E;border-right: 1px solid #9CC772;font-size: 24px;color: #ffffff;background-color: #8BC351;}
-.btn-sos{background-color: #EE8649;font-size: 36px;color: #ffffff;height: 80px;line-height: 80px;}.btn-sos:focus{color: #ffffff;}
+.btn-sos{background-color: #EE8649;font-size: 36px;color: #ffffff;height: 80px;line-height: 80px;}.btn-sos:focus{color: #ffffff;}.btn-sos:active{color: #fff;}
 .btn-share{border: 2px solid #9FCE6F;font-size: 36px;color: #727272;height: 80px;line-height: 80px;background-color: #fff;}
 .btn-confirm{background-color: #EE8649;font-size: 36px;color: #ffffff;height: 65px;line-height: 65px;}
 .header{height: 95px;background: #F4FDEE;padding: 10px 20px;border-bottom: 1px solid #74A74D;}

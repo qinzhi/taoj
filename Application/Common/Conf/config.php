@@ -22,4 +22,5 @@ return array(
     'APPSECRET' => '6b03637152bd0b0ee01f0eb641ed637f',
 
     'ATTACH_DIR' => PROJECT_RELATIVE_PATH . '/Public/Admin/Attachments/',
+    'USER_UP_DIR' => PROJECT_RELATIVE_PATH . '/Public/Wechat/user_up/',
 );

@@ -55,7 +55,8 @@
                 <div class="title"><span>{$appeal.title}</span></div>
                 <div class="clear"></div>
             </div>
-            <p>{$appeal.content}</p>
+            <p>{$appeal.content}<img src="<?php echo C('USER_UP_DIR') . $appeal['image_url']?>" style="display: block"/></p>
+
         </article>
     </div>
     <div class="container-fluid rely">

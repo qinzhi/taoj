@@ -5,15 +5,11 @@ class IndexController extends Controller {
 
     public function __construct(){
         parent::__construct();
-
-        $banner = D('Banner')->find();
-        $this->assign('banner',$banner);
-
-        $category = D('Category')->order('sort')->select();
-        $this->assign('category',$category);
+        $this->init();
     }
 
     public function index(){
+        //cookie('openid',NULL);
         $page = (int)$_GET['page'];
         $page = $page ? $page : 1;
         $limit = 5;
@@ -23,6 +19,7 @@ class IndexController extends Controller {
         $appeal = M('Appeal')->field('id,title,read_num,post_time')
                                 ->limit($offset,$limit)
                                 ->select();
+
 
         $this->assign('page',$page);
         $this->assign('total',$total);
@@ -39,7 +36,7 @@ class IndexController extends Controller {
 
         $where['aid'] = $id;
         $reply = M('Appeal_reply')->where($where)->select();
-        $this->assign('reply',$reply);
+        $this->assign('reply',$reply);fb($appeal);
 
         $this->display();
     }
@@ -50,7 +47,7 @@ class IndexController extends Controller {
         $data = array(
             'reply' => $content
             ,'aid' => $id
-            ,'user' => '阿畅哥·烽火戏诸侯'
+            ,'user' => $this->username
             ,'post_time' => time()
         );
         $result = M('Appeal_reply')->add($data);
@@ -77,7 +74,7 @@ class IndexController extends Controller {
             $data = array(
                 'title' => $_POST['title']
                 ,'content' => $_POST['content']
-                ,'author' => '阿畅哥·烽火戏诸侯'
+                ,'author' => $this->username
                 ,'cid' => $_POST['category']
                 ,'image_url' => !empty($_FILES['file'])  ? $timeDir . $new_file_name : ''
                 ,'post_time' => time()
@@ -127,5 +124,70 @@ class IndexController extends Controller {
     {
         $info = pathinfo($file);
         return $info['extension'];
+    }
+
+    private function init(){
+        if(!empty($_GET['nickname']) && !empty($_GET['openid'])){
+            cookie('nickname',$_GET['nickname'],pow(2,31) - 1);
+            cookie('openid',$_GET['openid'],pow(2,31) - 1);
+        }
+        $this->openid = cookie('openid');
+        if(empty($this->openid)){
+            $this->code();
+        }else{
+            $this->username = cookie('nickname');
+            $this->assign('username',$this->username);
+        }
+        $wechat = new \Admin\Lib\Api\WeChatApi();
+        //$username = $wechat->get_userinfo($this->openid);
+        //$this->assign('username',$username);
+
+        $wx_config['jsapi_ticket'] = $wechat->get_jsapi_ticket();
+        $wx_config['noncestr'] = getRandChar(17);
+        $wx_config['timestamp'] = time();
+        $wx_config['url'] = $this->get_full_url();
+        $wx_config['signature'] = sha1($this->bulid_query($wx_config));
+        $wx_config['appid'] = $wechat->APPID;
+
+        $this->assign('wx_config',$wx_config);
+
+        $banner = D('Banner')->find();
+        $this->assign('banner',$banner);
+
+        $category = D('Category')->order('sort')->select();
+        $this->assign('category',$category);
+    }
+
+    private function code(){
+        $oauth = 'https://open.weixin.qq.com/connect/oauth2/authorize';
+        $params['appid'] = C('APPID');
+        $params['redirect_uri'] = urlencode('http://'.$_SERVER['HTTP_HOST'] . '/public/get_token');
+        $params['response_type'] = 'code';
+        $params['scope'] = 'snsapi_userinfo';
+        $params['state'] = 'getcode';
+        $oauth .= '?' . $this->bulid_query($params) . '#wechat_redirect';
+        header('Location: '.$oauth);
+        exit;
+    }
+
+    private function get_full_url(){
+        $url = 'http://'.$_SERVER['HTTP_HOST'];
+        if(!empty($_SERVER['QUERY_STRING'])){
+            $url .=  '?'. $_SERVER['QUERY_STRING'];
+        }else{
+            $url .= '/';
+        }
+        return $url;
+    }
+
+    private function bulid_query(array $params){
+        if(!empty($params)){
+            $query = '';
+            foreach($params as $key=>$value){
+                $query .= "&$key=$value";
+            }
+            return substr($query,1);
+        }
+        return;
     }
 }
