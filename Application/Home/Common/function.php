@@ -17,9 +17,9 @@ function page($url,$cur_page,$pageNums,$params = '',$cell = 3) {
     $strData .= "<div class='page-center'><ul class='page-list btn-group'>";
     for($i = $start; $i <= $end; $i ++) {
         if ($i == $cur_page) {
-            $strData .= "<a href=" .$url. "?page=" . $i . $params." class=\"current\">" . $i . "</a>";
+            $strData .= "<li><a href=" .$url. "?page=" . $i . $params." class=\"current  btn btn-page\">" . $i . "</a></li>";
         } else {
-            $strData .= "<a href=" .$url. "?page=" . $i . $params.">" . $i . "</a>";
+            $strData .= "<li><a href=" .$url. "?page=" . $i . $params." class=\"btn btn-page\">" . $i . "</a></li>";
         }
     }
     $strData .= "</ul><div class='clear'></div></div>";

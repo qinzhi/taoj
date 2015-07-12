@@ -7,6 +7,8 @@
         </a>
     </li>
 
+
+
     <!--UI Elements-->
     <li <?php if($module==1)echo 'class="open active"';?>>
         <a href="#" class="menu-dropdown">
@@ -46,6 +48,33 @@
                 </a>
             </li>
         </ul>
+    </li>
+
+    <li <?php if($module==5)echo 'class="open active"';?>>
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon fa fa-desktop"></i>
+            <span class="menu-text"> 专家管理 </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li <?php if($module==5 && $method==1)echo 'class="active"';?>>
+                <a href="/expert">
+                    <span class="menu-text"> 专家列表 </span>
+                </a>
+            </li>
+            <li <?php if($module==5 && $method==2)echo 'class="active"';?>>
+                <a href="/expert/add">
+                    <span class="menu-text"> 添加专家 </span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li <?php if($module==4)echo 'class="active"';?>>
+        <a href="/appeal">
+            <i class="menu-icon fa fa-key"></i>
+            <span class="menu-text">求助列表</span>
+        </a>
     </li>
 
     <li <?php if($module==3)echo 'class="active"';?>>

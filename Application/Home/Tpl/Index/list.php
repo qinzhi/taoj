@@ -41,14 +41,24 @@
         </div>
         <div class="search-left"><span><i class="fa fa-search"></i></span></div>
         <div class="search-right"><a class="btn-search" href="javascript:;">搜索</a></div>
-        <div class="AdPositionId">
+        <div style="clear: both;height: 10px;"></div>
+        <!--<div class="AdPositionId">
             <p>文字广告位文字广告位文字广告位文字</p>
-        </div>
+        </div>-->
     </div>
     <div class="container-fluid category">
         <div class="title">
             <i class="fa fa-list pull-left"></i>
-            <h3>全部信息</h3>
+            <h3><?php
+                $id = trim((int)$_GET['id']);
+                $title = '全部信息';
+                foreach($category as $value){
+                    if($id == $value['id']){
+                        echo $value['name'] . '信息';
+                        break;
+                    }
+                }
+                ?></h3>
             <div class="clear"></div>
         </div>
         <ul class="category-list">
@@ -70,10 +80,19 @@
             <a class="btn btn-sos" href="appeal.html">我要求助</a>
         </div>
         <div class="share">
-            <a class="btn btn-share" href="#">分享到朋友圈·大家一起解决</a>
+            <a class="btn btn-share" href="javascript:;">关注·桃江帮帮团</a>
         </div>
     </div>
 </div>
+
+<div class="modal-qrcode">
+    <div class="div-qrcode">
+        <p>长按以下二维码识别并关注</p>
+        <img src="__IMAGE__/qrcode.jpg" id="qrcode"/>
+    </div>
+</div>
+<div class="modal"></div>
+
 
 <div class="footer">
     <p><span class="p1">立足桃江</span><span class="p2">&</span><span class="p3">服务家乡</span></p>
@@ -89,6 +108,14 @@
                window.location.href = '/index/category?id={$_GET.id}';
            }
        });
+        $('.btn-share').click(function(){
+            $('.modal-qrcode').show();
+            $('.modal').show();
+        });
+        $('.modal-qrcode').click(function(){
+            $('.modal-qrcode').hide();
+            $('.modal').hide();
+        });
     });
 </script>
 </body>

@@ -79,3 +79,4 @@ ul.tree_menu a.active i {
 .tree-level2{padding-left: 30px;display: inline-block}
 .tree-level3{padding-left: 60px;display: inline-block}
 table td{vertical-align: middle !important;}
+.page{text-align: right;padding-top: 10px;}

@@ -31,6 +31,8 @@ class WeChatApi extends Model{
     protected $api_url  =  array();
 
     protected $access_token = '';
+
+    public $APPID,$SECRET;
     /**
      * 接口地址
      * @var string
@@ -38,8 +40,8 @@ class WeChatApi extends Model{
     protected $url    =   '';
 
     function __construct(){
-        $this->CORPID   =   'wx755896948c0fb82d';
-        $this->SECRET   =   '_coTBTWxo6RiJ04UE3pMnUvmLzeBpSJlVo9ffzK3K092X-8REVUnFFJcf8zQkn40';
+        $this->APPID   =   C('APPID');
+        $this->SECRET   =   C('APPSECRET');
         $this->api_url  =   C('WEIXIN_API_URL');
         $this->access_token = $this->getToken();
     }
@@ -57,7 +59,7 @@ class WeChatApi extends Model{
                 $accesstoken = $this->getAcessToken(); // 去微信获取最新ACCESS_TOKEN
                 $stoken ['tokentime'] = time ();
                 $stoken ['token'] = $accesstoken;
-                S ( 'S_TOKEN', $stoken, 7000); // 放进缓存
+                S ( 'S_TOKEN', $stoken, 7200); // 放进缓存
             } else {
                 $accesstoken = $stoken ['token'];
             }
@@ -65,7 +67,7 @@ class WeChatApi extends Model{
             $accesstoken = $this->getAcessToken(); // 去微信获取最新ACCESS_TOKEN
             $stoken ['tokentime'] = time ();
             $stoken ['token'] = $accesstoken;
-            S ('S_TOKEN', $stoken); // 放进缓存
+            S ('S_TOKEN', $stoken, 7200); // 放进缓存
         }
 
         return $accesstoken;
@@ -76,14 +78,12 @@ class WeChatApi extends Model{
      */
 
     private function getAcessToken() {
-        //$appid = C ( 'WECHAT_APPID' );
-        //$appsecret = C ( 'WECHAT_APPSECRET' );
 
         $this->url = $this->get_url('access_token');
         $params = array ();
         $params ['grant_type'] = 'client_credential';
-        $params ['corpid'] = $this->CORPID;
-        $params ['corpsecret'] = $this->SECRET;
+        $params ['appid'] = $this->APPID;
+        $params ['secret'] = $this->SECRET;
         $httpstr = http($this->url,$params);
         $harr = json_decode ( $httpstr, true );
         return $harr ['access_token'];
@@ -92,239 +92,70 @@ class WeChatApi extends Model{
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**********************************************  管理通讯录  *******************************************************************/
 
-    /**
-     * 获取部门列表
-     * @param $id   部门id。获取指定部门id下的子部门
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function get_department_list($id){
+
+    public function get_ticket(){
+        $ticket = S ( 'S_ticket');
+        if (is_array ($ticket)&&!empty($ticket['ticket'])) {
+            $nowtime = time ();
+            $difftime = $nowtime - $ticket ['tokentime']; // 判断缓存里面的TOKEN保存了多久；
+            if ($difftime > 7000) { // TOKEN有效时间7200 判断超过7000就重新获取;
+                $ticket = $this->get_jsapi_ticket(); // 去微信获取最新ACCESS_TOKEN
+                $jsapi_ticket ['tokentime'] = time ();
+                $jsapi_ticket ['ticket'] = $ticket;
+                S ( 'S_TOKEN', $ticket, 7200); // 放进缓存
+            } else {
+                $ticket = $ticket ['ticket'];
+            }
+        } else {
+            $ticket = $this->get_jsapi_ticket(); // 去微信获取最新ACCESS_TOKEN
+            $jsapi_ticket ['tokentime'] = time ();
+            $jsapi_ticket ['token'] = $ticket;
+            S ('S_TOKEN', $jsapi_ticket, 7200); // 放进缓存
+        }
+
+        return $ticket;
+    }
+
+    public function get_jsapi_ticket(){
         $this->url = $this->get_url(__FUNCTION__);
         $this->send =   array(
-            'id'    =>  $id
+            'type' => 'jsapi'
         );
         $dataStr    =   $this->format_params($this->send,'get');
-
-        $this->data = http($this->url,$dataStr,'get');
-
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
-    /**
-     * 创建部门
-     * @param $send 发送的数据
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function create_department($send){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send = $send;
-
-        $dataStr    =   $this->format_params($this->send);
-
-        $this->data = http($this->url,$dataStr,'post');
-
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
-    /**
-     * 更新部门
-     * @param $send 发送的数据
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function update_department($send){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send = $send;
-
-        $dataStr    =   $this->format_params($this->send);
-
-        $this->data = http($this->url,$dataStr,'post');
-
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
-    /**
-     * 删除部门
-     * @param $id   部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function delete_department($id){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send =   array(
-            'id'    =>  $id
-        );
-        $dataStr    =   $this->format_params($this->send,'get');
-
-        $this->data = http($this->url,$dataStr,'get');
-
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
-
-    /**
-     * 获取成员
-     * @param $userid   成员UserID。对应管理端的帐号，企业内必须唯一。长度为1~64个字节
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function get_user($userid){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send =   array(
-            'userid'    =>  $userid
-        );
-        $dataStr    =   $this->format_params($this->send,'get');
-
-        $this->data = http($this->url,$dataStr,'get');
-
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
-    /**
-     * 获取部门成员
-     * @param $department_id    获取的部门id
-     * @param int $fetch_child  1/0：是否递归获取子部门下面的成员
-     * @param int $status   0获取全部成员，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function get_user_simpleList($department_id , $fetch_child = 0 , $status = 0){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send =   array(
-            'department_id' => $department_id,
-            'fetch_child' => $fetch_child,
-            'status' => $status
-        );
-        $dataStr    =   $this->format_params($this->send,'get');
-
-        $this->data = http($this->url,$dataStr,'get');
-
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
-    /**
-     * 获取部门成员
-     * @param $department_id    获取的部门id
-     * @param int $fetch_child  1/0：是否递归获取子部门下面的成员
-     * @param int $status   0获取全部成员，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function get_user_list($department_id , $fetch_child = 0 , $status = 0){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send =   array(
-            'department_id' => $department_id,
-            'fetch_child' => $fetch_child,
-            'status' => $status
-        );
-        $dataStr    =   $this->format_params($this->send,'get');
-
-        $this->data = http($this->url,$dataStr,'get');
-
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
-    /**
-     * 邀请成员关注
-     * @param $userid   成员UserID。对应管理端的帐号
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function invite_send($userid){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send =   array(
-            'userid' => $userid
-        );
-        $dataStr    =   $this->format_params($this->send);
 
         $this->data = http($this->url,$dataStr);
 
         $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
+
+        if($result->errcode == 0){
+            return $result->ticket;
+        }else{
+            $ticket = S ( 'S_ticket');
+            return  $ticket['ticket'];
+        }
     }
 
-    /**
-     * 创建成员
-     * @param $send 发送的数据
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function create_user($send){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send = $send;
+    public function get_userinfo($openid){
+        $username = cookie('nickname');
+        if(empty($username)){
+            $this->url = $this->get_url(__FUNCTION__);
+            $this->send =   array(
+                'openid' => $openid,
+                'lang' => 'zh_CN'
+            );
+            $dataStr    =   $this->format_params($this->send,'get');
 
-        $dataStr    =   $this->format_params($this->send);
+            $this->data = http($this->url,$dataStr);
 
-        $this->data = http($this->url,$dataStr,'post');
+            $result =    $this->verify_data($this->data,__FUNCTION__);
+            if($result->errcode == 0){
+                cookie('nickname',$result->nickname,pow(2,31) - 1);
+                $username = $result->nickname;
+            }
+        }
+        return $username;
 
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
     }
-
-    /**
-     * 更新成员
-     * @param $send 发送的数据
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function update_user($send){
-        $this->url  = $this->get_url(__FUNCTION__);
-        $this->send = $send;
-
-        $dataStr    =   $this->format_params($this->send);
-
-        $this->data = http($this->url,$dataStr,'post');
-
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
-    /**
-     * 删除成员
-     * @param $userid   成员UserID。对应管理端的帐号
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function delete_user($userid){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send =   array(
-            'userid'    =>  $userid
-        );
-
-        $dataStr    =   $this->format_params($this->send);
-
-        $this->data = http($this->url,$dataStr);
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
-    /**
-     * 批量删除成员
-     * @param $useridlist   成员UserID列表。对应管理端的帐号
-     * @return int|mixed
-     * @throws \Exception
-     */
-    public function bat_delete_user($useridlist){
-        $this->url = $this->get_url(__FUNCTION__);
-        $this->send =   array(
-            'useridlist'    =>  json_encode($useridlist)
-        );
-
-        $dataStr    =   $this->format_params($this->send);
-
-        $this->data = http($this->url,$dataStr);
-        $result =    $this->verify_data($this->data,__FUNCTION__);
-        return $result;
-    }
-
 
     ////////////////////////////////////////////  end //////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////

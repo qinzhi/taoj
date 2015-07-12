@@ -44,18 +44,26 @@
                 <a class="btn btn-sos" href="<?php echo PROJECT_RELATIVE_PATH;?>/index/appeal">我要求助</a>
             </div>
             <div class="col-md-6 content-broadcast-share">
-                <a class="btn btn-share" href="javascript:;">分享到朋友圈·大家一起解决</a>
+                <a class="btn btn-share" href="javascript:;">关注·桃江帮帮团</a>
             </div>
         </div>
     </div>
     <div class="container-fluid article">
         <article>
             <div class="article-title">
-                <div class="icon"><img src="/Public/Wechat/img/logo.png"></div>
+                <div class="icon">
+                    <img src="/Public/Wechat/img/logo.png">
+                </div>
                 <div class="title"><span>{$appeal.title}</span></div>
                 <div class="clear"></div>
             </div>
-            <p>{$appeal.content}</p>
+            <p>
+                {$appeal.content}
+                <?php if(!empty($appeal['image_url'])):?>
+                    <img src="<?php echo C('USER_UP_DIR') . $appeal['image_url']?>" style="display: block;width: 100%;"/>
+                <?php endif;?>
+            </p>
+
         </article>
     </div>
     <div class="container-fluid rely">
@@ -63,8 +71,16 @@
             <volist name="reply" id="vo">
                 <li class="rely-list">
                     <div class="good-soul">
-                        <img src="__IMAGE__/logo.png">
-                        <p>热心人</p>
+                        <?php if($vo['is_expert']):?>
+                            <?php if($vo['avator']):?>
+                                <img src="<?php echo C('ATTACH_DIR') . $vo['avator']?>">
+                            <?php else:?>
+                                <img src="__IMAGE__/logo.png">
+                            <?php endif;?>
+                        <?php else:?>
+                            <img src="__IMAGE__/logo.png">
+                        <?php endif;?>
+                        <p>{$vo.user}</p>
                     </div>
                     <div class="viewpoint">
                         <p>{$vo.reply}</p>
@@ -86,10 +102,19 @@
             <a class="btn btn-sos" href="<?php echo PROJECT_RELATIVE_PATH;?>/index/appeal">我要求助</a>
         </div>
         <div class="share">
-            <a class="btn btn-share" href="javascript:;">分享到朋友圈·大家一起解决</a>
+            <a class="btn btn-share" href="javascript:;">关注·桃江帮帮团</a>
         </div>
     </div>
 </div>
+
+<div class="modal-qrcode">
+    <div class="div-qrcode">
+        <p>长按以下二维码识别并关注</p>
+        <img src="__IMAGE__/qrcode.jpg" id="qrcode"/>
+    </div>
+</div>
+<div class="modal"></div>
+
 <div class="footer">
     <p><span class="p1">立足桃江</span><span class="p2">&</span><span class="p3">服务家乡</span></p>
     <p class="theme">桃江帮帮团</p>
@@ -104,6 +129,14 @@
                 if(result)
                     window.location.reload();
             });
+        });
+        $('.btn-share').click(function(){
+            $('.modal-qrcode').show();
+            $('.modal').show();
+        });
+        $('.modal-qrcode').click(function(){
+            $('.modal-qrcode').hide();
+            $('.modal').hide();
         });
     });
 </script>

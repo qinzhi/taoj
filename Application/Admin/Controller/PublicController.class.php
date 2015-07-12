@@ -17,10 +17,18 @@ class PublicController extends Controller {
     }
 
     public function index(){
+        $user = session('user');
+        if(!empty($user)){
+            header('Location: /banner');
+        }
         $this->display('login');
     }
 
     public function login(){
+        $user = session('user');
+        if(!empty($user)){
+            header('Location: /banner');
+        }
         $this->display();
     }
 

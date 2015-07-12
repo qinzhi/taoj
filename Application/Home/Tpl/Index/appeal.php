@@ -117,7 +117,7 @@
         }
 
         fileSize=Math.round(fileSize/1024*100)/100; //单位为KB
-        if(fileSize >= 1024){
+        if(fileSize >= 2048){
             alert("照片最大尺寸为1M，请重新上传!");
             return false;
         }
